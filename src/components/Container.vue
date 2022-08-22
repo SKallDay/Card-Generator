@@ -19,6 +19,9 @@ export default {
       if (!this.cards || !this.cols) {
         return true
       }
+      if (this.cards > 5 || this.cols > 5) {
+        return true
+      }
     }
   },
   methods: {
