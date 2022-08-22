@@ -15,6 +15,7 @@ export default {
   },
   computed: {
     isDisabled() {
+      // check card or columns are populated to disable button
       if (!this.cards || !this.cols) {
         return true
       }
@@ -28,29 +29,37 @@ export default {
       if (cards <= 5 && cols <= 5) {
         this.cols = e.target.elements.cols.value
         this.cards = e.target.elements.cards.value
-      } else {
-        alert('please enter number belows 5 for cards and columns ')
       }
       const totalLetters = cards * cols
-      const randomLetters = this.generateString(totalLetters, cols)
+      const randomLetters = this.generateRandomLetters(totalLetters, cols)
       this.randomLetters = randomLetters
     },
-    generateString(numOfLetters, cols) {
+
+    generateRandomLetters(numOfLetters, cols) {
+      // Possible characters A-Z, split into an array
       const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      // generate array, use sort to randomize order of characters
+      // slice array to numbers of characters needed
       const randomLettersArray = [...characters]
         .sort(() => (Math.random() > 0.5 ? 1 : -1))
         .slice(0, numOfLetters);
-      return this.splitIntoRows(randomLettersArray, cols)
+      return this.splitArrayIntoRows(randomLettersArray, cols)
     },
-    splitIntoRows(arr, len) {
+
+    splitArrayIntoRows(arr, len) {
+      // Split array into sub arrays used for letter grid
       var chunks = []
+      // Iterate over array and slice into chunks
       for (let i = 0; i < arr.length; i += len) {
         const chunk = arr.slice(i, i + len);
         chunks.push(chunk)
       }
+      // returns an array of arrays
       return chunks;
     },
+
     handleInput(e) {
+      // update values for inputs
       const inputName = e.target.name
       const value = parseInt(e.target.value)
 
@@ -87,7 +96,7 @@ export default {
   <div v-if="randomLetters.length" class="grid-container border-rd-1 flex flex-col mt8">
     <div class="grid-row flex flex-row" v-for="(row, index1) in randomLetters">
       <div v-for="(letter, index) in row">
-        <Card :msg="letter" :row=index :col=index1 />
+        <Card :msg="letter" :row=index1 :col=index />
       </div>
     </div>
   </div>
