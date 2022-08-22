@@ -62,30 +62,30 @@ export default {
 
 <template>
   <div class="container">
-    <h1 class="header">Card Generator</h1>
-    <form class="form" v-on:submit="submit">
-      <div class="form-container">
-        <div class="input-container">
+    <h1 class="header fw700 text-5xl mb3">Card Generator</h1>
+    <form class="form p3 items-center flex border-rd-1" v-on:submit="submit">
+      <div class="form-container flex items-center">
+        <div class="flex items-center">
           <label>Generate</label>
-          <input class="textInput" type="text" :v-model=this.cards name="cards" pattern="[+]?([0-4]*\.[0-9]+|[0-5])"
-            required @input="handleInput" />
+          <input class="textInput flex items-center justify-center p2 mr2 ml2 border-rd-1" type="text"
+            :v-model=this.cards name="cards" pattern="[+]?([0-4]*\.[0-9]+|[0-5])" required @input="handleInput" />
           <p mb10>random cards, &nbsp</p>
         </div>
-        <div class="input-container">
+        <div class="flex items-center">
           <p>each with </p>
-          <input class="textInput" type="text" :v-model=this.cols name="cols" max="5"
-            pattern="[+]?([0-4]*\.[0-9]+|[0-5])" required @input="handleInput" />
+          <input class="textInput flex items-center justify-center p2 mr2 ml2 border-rd-1" type="text"
+            :v-model=this.cols name="cols" max="5" pattern="[+]?([0-4]*\.[0-9]+|[0-5])" required @input="handleInput" />
           <label>rows/columns.</label>
         </div>
       </div>
-      <button class="button" :disabled=isDisabled>
+      <button class="button border-rd-1 text-white" :disabled=isDisabled>
         Generate
       </button>
     </form>
   </div>
 
-  <div v-if="randomLetters.length" class="grid-container">
-    <div class="grid-row" v-for="(row, index1) in randomLetters">
+  <div v-if="randomLetters.length" class="grid-container border-rd-1 flex flex-col mt8">
+    <div class="grid-row flex flex-row" v-for="(row, index1) in randomLetters">
       <div v-for="(letter, index) in row">
         <Card :msg="letter" :row=index :col=index1 />
       </div>
@@ -103,63 +103,30 @@ export default {
 .container {
   width: 80%;
   margin: 0 auto;
+  padding-top: 52px;
 }
 
 .grid-container {
   border: 12px solid black;
-  display: flex;
-  flex-direction: column;
   width: fit-content;
   margin: 0 auto;
-  margin-top: 35px;
-  border-radius: 4px;
 }
 
 .grid-row {
   display: flex;
   flex-direction: row;
-  flex-grow: 3;
-}
-
-.item {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #FFFFFF;
-  font-family: 'Roboto Slab';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 36px;
-  line-height: 47px;
-  border: 12px solid black;
 }
 
 .header {
   font-family: 'Roboto Slab';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 63px;
 }
 
 .form {
-  height: 62px;
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  padding: 0px 10px;
 }
 
 .form-container {
-  display: flex;
-  align-items: center;
-}
-
-.input-container {
   display: flex;
   align-items: center;
 }
@@ -168,9 +135,7 @@ export default {
   padding: 7px 13px;
   height: 38px;
   background: #0D6EFD;
-  border-radius: 4px;
   font-family: 'Roboto Slab';
-  color: #FFFFFF;
   margin-left: auto;
 }
 
@@ -183,12 +148,6 @@ button:disabled {
   width: 56px;
   height: 38px;
   border: 1px solid #CED4DA;
-  border-radius: 4px;
-  margin: 0px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
 }
 
 @media (max-width: 768px) {
@@ -213,27 +172,12 @@ button:disabled {
     padding-right: 30px;
   }
 
-  .input-container {
-    display: flex;
-  }
-
   .textInput {
     margin-bottom: 10px;
   }
 
   .button {
     width: 100%;
-  }
-
-  .grid-row {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 3;
-  }
-
-  .card {
-    width: 66px;
-    height: 65px;
   }
 }
 </style>
